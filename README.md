@@ -2,6 +2,49 @@
 
 A Spotify Wrapped-style dashboard for analyzing your YouTube watch history from Google Takeout.
 
+Built for the **EF x Tessl x Anthropic Hackathon** (Nov 3, 2025).
+
+## Demo
+
+> **Live Demo**: Run `npm run dev` in the `youtube-wrapped-app/` folder and visit http://localhost:5173
+
+### Screenshots
+
+<details>
+<summary>Click to view dashboard screenshots (coming soon)</summary>
+
+**Hero Section - Overview with big stats**
+![Hero Section](assets/screenshots/hero-section.png)
+*Total videos, hours watched, favorite channel with interactive links*
+
+**Binge Sessions - With thumbnail grids**
+![Binge Sessions](assets/screenshots/binge-session-thumbnails.png)
+*Binge detection with clickable video thumbnails and most-rewatched tracking*
+
+**Fun Facts - Interactive video thumbnails**
+![Fun Facts](assets/screenshots/fun-facts-thumbnails.png)
+*First/last videos of the year with clickable thumbnails*
+
+**Top Channels - Rankings and analytics**
+![Top Channels](assets/screenshots/top-channels.png)
+*Top 10 most-watched channels with view counts*
+
+**Watching Patterns - Time-based heatmap**
+![Patterns Heatmap](assets/screenshots/patterns-heatmap.png)
+*Hourly, daily, weekly, and monthly viewing patterns*
+
+**Content Categories - Breakdown**
+![Categories](assets/screenshots/categories-pie.png)
+*Content classification: music, gaming, education, tech, and more*
+
+> **Note**: Screenshots will be added soon. See [Screenshot Instructions](assets/SCREENSHOT_INSTRUCTIONS.md) for details.
+
+</details>
+
+### Presentation
+
+View the complete [Hackathon Presentation](HACKATHON_PRESENTATION.md) with technical deep-dive, demo walkthrough, and key learnings.
+
 ## Project Structure
 
 ```
