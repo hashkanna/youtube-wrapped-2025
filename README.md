@@ -13,9 +13,12 @@ A Spotify Wrapped-style dashboard for analyzing your YouTube watch history from 
 │   │   ├── App.jsx             # Main dashboard component
 │   │   ├── index.css           # Tailwind CSS setup
 │   │   └── main.jsx            # React entry point
+│   ├── public/
+│   │   └── watch-history.html  # Sample data (git-ignored)
 │   ├── package.json
 │   └── ...
-├── youtube_data/
+├── data/                        # Your personal data (git-ignored)
+│   ├── README.md               # Instructions for getting your data
 │   └── watch-history.html      # Your YouTube watch history
 ├── instruction.txt             # Original hackathon instructions
 └── event.txt                   # Event information
@@ -75,9 +78,12 @@ Then open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ### Using the Dashboard
 
-1. The app will show a file upload screen
-2. Click "Choose File" or drag-and-drop your `watch-history.html`
-3. Wait for processing (usually 1-5 seconds)
+The app automatically loads sample data on startup - just open http://localhost:5173!
+
+**To use your own data:**
+1. Get your `watch-history.html` from Google Takeout (see above)
+2. Copy it to the `data/` folder, or
+3. Upload it through the app's file upload interface
 4. Explore your YouTube Wrapped with the tab navigation!
 
 ## Technical Details

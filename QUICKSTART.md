@@ -15,8 +15,8 @@ The app will be available at **http://localhost:5173**
 ### Step 2: Get Your Data (5 minutes)
 
 **Option A: Use the included sample data**
-- The project includes `youtube_data/watch-history.html`
-- Just drag and drop it into the app!
+- The app automatically loads sample data on startup
+- No upload needed - just open the app!
 
 **Option B: Use your own YouTube history**
 1. Go to [takeout.google.com](https://takeout.google.com)
