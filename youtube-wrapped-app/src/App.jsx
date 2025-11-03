@@ -9,6 +9,26 @@ import {
 } from 'lucide-react';
 
 // ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+// Get YouTube thumbnail URL for a video ID
+function getYouTubeThumbnail(videoId, quality = 'hqdefault') {
+  // quality options: maxresdefault (1920x1080), hqdefault (480x360), mqdefault (320x180), default (120x90)
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+}
+
+// Get YouTube video URL
+function getYouTubeVideoUrl(videoId) {
+  return `https://www.youtube.com/watch?v=${videoId}`;
+}
+
+// Get YouTube channel URL
+function getYouTubeChannelUrl(channelId) {
+  return `https://www.youtube.com/channel/${channelId}`;
+}
+
+// ============================================================================
 // DATA PROCESSING FUNCTIONS
 // ============================================================================
 
@@ -313,7 +333,7 @@ function createBingeSession(events) {
     endTime: events[events.length - 1].timestamp,
     videoCount: events.length,
     durationMinutes: Math.round((events[events.length - 1].timestamp - events[0].timestamp) / (1000 * 60)),
-    videos: events.map(e => ({ title: e.title, channel: e.channelName })),
+    videos: events.map(e => ({ title: e.title, channel: e.channelName, videoId: e.videoId, channelId: e.channelId })),
     dominantChannel
   };
 }
@@ -496,10 +516,25 @@ function HeroSection({ analytics }) {
             <div className="opacity-90">Videos Per Day</div>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6">
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 hover:bg-white/20 transition-colors">
             <Trophy className="w-12 h-12 mx-auto mb-3" />
-            <div className="text-2xl font-bold mb-2">{topChannel.channelName}</div>
+            <a
+              href={getYouTubeChannelUrl(topChannel.channelId)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-2xl font-bold mb-2 hover:text-pink-200 transition-colors"
+            >
+              {topChannel.channelName}
+            </a>
             <div className="opacity-90">Favorite Channel</div>
+            <a
+              href={getYouTubeChannelUrl(topChannel.channelId)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm mt-3 inline-block hover:text-pink-300 transition-colors"
+            >
+              Visit Channel →
+            </a>
             <div className="text-sm mt-2">{topChannel.videoCount} videos</div>
           </div>
         </div>
@@ -525,7 +560,7 @@ function ChannelsSection({ channels }) {
           {top10.map((channel, index) => (
             <div
               key={channel.channelName}
-              className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow"
+              className="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl hover:scale-[1.02] transition-all duration-200"
             >
               <div className="flex items-center gap-4">
                 <div className={`text-4xl font-bold w-12 ${
@@ -540,7 +575,14 @@ function ChannelsSection({ channels }) {
 
                 <div className="flex-1">
                   <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-xl font-semibold">{channel.channelName}</h3>
+                    <a
+                      href={getYouTubeChannelUrl(channel.channelId)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xl font-semibold hover:text-red-600 transition-colors"
+                    >
+                      {channel.channelName}
+                    </a>
                     <div className="text-right">
                       <div className="text-2xl font-bold text-red-600">{channel.videoCount}</div>
                       <div className="text-sm text-gray-500">{channel.percentage}%</div>
@@ -553,6 +595,15 @@ function ChannelsSection({ channels }) {
                       style={{ width: `${(channel.videoCount / maxCount) * 100}%` }}
                     ></div>
                   </div>
+
+                  <a
+                    href={getYouTubeChannelUrl(channel.channelId)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm mt-3 inline-block text-blue-600 hover:text-blue-800 transition-colors"
+                  >
+                    View Channel →
+                  </a>
                 </div>
               </div>
             </div>
@@ -773,6 +824,27 @@ function BingesSection({ binges, rewatches }) {
             <div className="space-y-4">
               {top5Binges.map((binge, index) => (
                 <div key={index} className="bg-gray-700 rounded-xl p-4">
+                  <div className="grid grid-cols-3 gap-2 mb-3">
+                    {binge.videos.slice(0, 3).map((video, i) => (
+                      <a
+                        key={i}
+                        href={getYouTubeVideoUrl(video.videoId)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group"
+                      >
+                        <img
+                          src={getYouTubeThumbnail(video.videoId)}
+                          alt={video.title}
+                          className="w-full aspect-video object-cover rounded hover:scale-105 transition-transform cursor-pointer"
+                          loading="lazy"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      </a>
+                    ))}
+                  </div>
                   <div className="flex justify-between items-start mb-2">
                     <div>
                       <div className="text-xl font-bold text-purple-400">{binge.videoCount} videos</div>
@@ -800,8 +872,38 @@ function BingesSection({ binges, rewatches }) {
                   <Heart className="w-8 h-8 text-red-400" />
                   Most Rewatched
                 </h3>
-                <div className="text-xl font-semibold mb-2">{rewatches.mostRewatchedVideo.title}</div>
-                <div className="text-gray-300 mb-4">{rewatches.mostRewatchedVideo.channel}</div>
+                <a
+                  href={getYouTubeVideoUrl(rewatches.mostRewatchedVideo.videoId)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block mb-4"
+                >
+                  <img
+                    src={getYouTubeThumbnail(rewatches.mostRewatchedVideo.videoId)}
+                    alt={rewatches.mostRewatchedVideo.title}
+                    className="w-full aspect-video object-cover rounded-lg mb-4 hover:scale-105 transition-transform cursor-pointer"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                </a>
+                <a
+                  href={getYouTubeVideoUrl(rewatches.mostRewatchedVideo.videoId)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xl font-semibold mb-2 hover:text-pink-300 block transition-colors"
+                >
+                  {rewatches.mostRewatchedVideo.title}
+                </a>
+                <a
+                  href={getYouTubeChannelUrl(rewatches.mostRewatchedVideo.channelId)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-white transition-colors block mb-4"
+                >
+                  {rewatches.mostRewatchedVideo.channel}
+                </a>
                 <div className="text-4xl font-bold text-pink-400">{rewatches.mostRewatchedVideo.count}x</div>
               </div>
             )}
@@ -903,8 +1005,20 @@ function FunFactsSection({ funFacts }) {
                 <Play className="w-8 h-8" />
                 First Video of 2025
               </h3>
-              <div className="text-lg font-semibold mb-2">{funFacts.firstVideoOf2025.title}</div>
-              <div className="text-gray-300">{funFacts.firstVideoOf2025.channelName}</div>
+              <a href={getYouTubeVideoUrl(funFacts.firstVideoOf2025.videoId)} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={getYouTubeThumbnail(funFacts.firstVideoOf2025.videoId)}
+                  alt={funFacts.firstVideoOf2025.title}
+                  className="w-full aspect-video object-cover rounded-lg mb-4 hover:scale-105 transition-transform cursor-pointer bg-gray-200"
+                  loading="lazy"
+                />
+              </a>
+              <a href={getYouTubeVideoUrl(funFacts.firstVideoOf2025.videoId)} target="_blank" rel="noopener noreferrer" className="text-lg font-semibold mb-2 hover:text-pink-300 block transition-colors">
+                {funFacts.firstVideoOf2025.title}
+              </a>
+              <a href={getYouTubeChannelUrl(funFacts.firstVideoOf2025.channelId)} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
+                {funFacts.firstVideoOf2025.channelName}
+              </a>
               <div className="text-sm text-gray-400 mt-2">
                 {new Date(funFacts.firstVideoOf2025.timestamp).toLocaleString()}
               </div>
@@ -917,8 +1031,20 @@ function FunFactsSection({ funFacts }) {
                 <Play className="w-8 h-8" />
                 Latest Video
               </h3>
-              <div className="text-lg font-semibold mb-2">{funFacts.lastVideoOf2025.title}</div>
-              <div className="text-gray-300">{funFacts.lastVideoOf2025.channelName}</div>
+              <a href={getYouTubeVideoUrl(funFacts.lastVideoOf2025.videoId)} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={getYouTubeThumbnail(funFacts.lastVideoOf2025.videoId)}
+                  alt={funFacts.lastVideoOf2025.title}
+                  className="w-full aspect-video object-cover rounded-lg mb-4 hover:scale-105 transition-transform cursor-pointer bg-gray-200"
+                  loading="lazy"
+                />
+              </a>
+              <a href={getYouTubeVideoUrl(funFacts.lastVideoOf2025.videoId)} target="_blank" rel="noopener noreferrer" className="text-lg font-semibold mb-2 hover:text-pink-300 block transition-colors">
+                {funFacts.lastVideoOf2025.title}
+              </a>
+              <a href={getYouTubeChannelUrl(funFacts.lastVideoOf2025.channelId)} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
+                {funFacts.lastVideoOf2025.channelName}
+              </a>
               <div className="text-sm text-gray-400 mt-2">
                 {new Date(funFacts.lastVideoOf2025.timestamp).toLocaleString()}
               </div>
@@ -931,8 +1057,20 @@ function FunFactsSection({ funFacts }) {
                 <Trophy className="w-8 h-8" />
                 Video #1000 Milestone!
               </h3>
-              <div className="text-xl font-semibold mb-2">{funFacts.video1000.title}</div>
-              <div className="text-gray-100">{funFacts.video1000.channelName}</div>
+              <a href={getYouTubeVideoUrl(funFacts.video1000.videoId)} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={getYouTubeThumbnail(funFacts.video1000.videoId)}
+                  alt={funFacts.video1000.title}
+                  className="w-full aspect-video object-cover rounded-lg mb-4 hover:scale-105 transition-transform cursor-pointer bg-gray-200"
+                  loading="lazy"
+                />
+              </a>
+              <a href={getYouTubeVideoUrl(funFacts.video1000.videoId)} target="_blank" rel="noopener noreferrer" className="text-xl font-semibold mb-2 hover:text-gray-100 block transition-colors">
+                {funFacts.video1000.title}
+              </a>
+              <a href={getYouTubeChannelUrl(funFacts.video1000.channelId)} target="_blank" rel="noopener noreferrer" className="text-gray-100 hover:text-white transition-colors">
+                {funFacts.video1000.channelName}
+              </a>
             </div>
           )}
 
