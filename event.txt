@@ -1,0 +1,91 @@
+
+Events
+Calendars
+Discover
+20:33 GMT
+Create Event
+
+
+Cover Image for EF x Tessl x Anthropic | After Work Hack
+Cover Image for EF x Tessl x Anthropic | After Work Hack
+Avatar for Entrepreneurs First
+Presented by
+Entrepreneurs First
+
+Entrepreneurs First invests in exceptional individuals to build startups from scratch.
+Hosted By
+Entrepreneurs First
+Ayman Ali
+Patrick Ross
+Sam Hepburn
+
+Contact the Host
+
+Report Event
+AI
+London
+Featured in 
+London
+EF x Tessl x Anthropic | After Work Hack
+Nov
+3
+Monday 3 November
+19:00 - 22:00
+Tessl AI Limited
+London, England
+LIVE
+You’re In
+
+My Ticket
+
+
+Invite a Friend
+No longer able to attend? Notify the host by cancelling your registration.
+Profile Complete · Reminder: Email
+About Event
+​Join us after work for an after-work hack with our friends at Tessl and Anthropic, where we’ll build personalised “Spotify Wrapped”-style dashboards using specs and Claude Code.
+
+​This is a hands-on evening for developers interested in agentic workflows, autonomous software patterns, and pushing LLMs beyond prompts into structured, repeatable development.
+
+​What we’ll do
+​In a focused 2-hour hack, you’ll:
+
+​Choose one or two data sources (APIs, exports, or personal data)
+
+​Write specs to guide Claude to extract, process, and visualise insights
+
+​Build your own “year-in-review” dashboard
+
+​Think Spotify Wrapped, but for anything: GitHub, fitness, browser usage, Claude activity, email patterns, gaming stats, and more.
+
+​The goal is simple: the best specifications win. Code quality is secondary. This is about instructing AI effectively and building reproducible AI-native workflows.
+
+​What you’ll need
+​A laptop
+
+​Access to one or two data sources you’d like to explore
+
+​Curiosity and a willingness to experiment
+
+​Schedule
+​19:00-19:15 — Intro to spec-driven development (Simon Maple, Head of DevRel at Tessl)
+19:15-19:30 — How to guide Claude Code effectively (Adriaan Engelbrecht, Applied AI at Anthropic)
+19:30-21:30 — Hacking session
+21:30-22:00 — Demos and judging
+
+​What You’ll Get
+​​Hands-on time with Tessl’s spec-driven dev platform
+
+​​Access to Claude Code and workflow integration opportunities
+
+​​Pizza, drinks, and swag to fuel your build
+
+​Apply to join and build your own “Wrapped” from scratch.
+
+Location
+Tessl AI Limited
+210 Pentonville Rd, London N1 9JY, UK
+
+DiscoverPricingHelp
+Host your event with Luma ↗
+

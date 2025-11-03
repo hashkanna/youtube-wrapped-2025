@@ -1,0 +1,193 @@
+## **YouTube Wrapped 2025 - Build Specification**
+
+### **Input Data**
+- File: `watch-history.json` from Google Takeout
+- Structure: Array of watch events with title, channel, timestamp, videoId
+
+### **Data Processing Pipeline**
+
+**Parse & Clean:**
+```javascript
+// Extract from each record:
+- Video title (remove "Watched " prefix)
+- Video ID from URL
+- Channel name
+- Timestamp (convert to Date object)
+- Year, month, day, hour, day of week
+
+// Filter for 2025 (or custom date range)
+```
+
+**Calculate Core Metrics:**
+1. Total videos watched
+2. Unique channels watched
+3. Videos per channel (for rankings)
+4. Videos per hour of day (0-23)
+5. Videos per day of week (Mon-Sun)
+6. Videos per month (Jan-Dec)
+7. Most rewatched videos (duplicate video IDs)
+8. Binge sessions (5+ videos within 2-hour windows)
+9. Longest binge session
+10. Average videos per day
+11. Peak watching hour/day
+
+**Categorize Content:**
+- Use title/channel keywords to classify:
+  - Music (contains: "official video", "lyrics", artist names)
+  - Gaming ("gameplay", "let's play", gaming channels)
+  - Education ("tutorial", "how to", "course", "explained")
+  - Entertainment ("vlog", "comedy", "challenge")
+  - Tech ("review", "unboxing", tech channels)
+  - Podcasts ("podcast", "interview", long durations)
+  - News ("news", "breaking", news channels)
+  - Other
+
+---
+
+### **Dashboard Sections**
+
+#### **1. Hero Stats**
+- **Total Videos Watched** (big number)
+- **Total Hours Estimated** (assume 10 min avg per video)
+- **Videos Per Day Average**
+- **Favorite Channel** (most watched)
+- Date range displayed
+
+#### **2. Top Channels**
+- Top 10 channels by video count
+- Show: Channel name, video count, % of total
+- Visual: Horizontal bar chart
+- Highlight #1 with special styling
+
+#### **3. Watching Patterns**
+**Time Heatmap:**
+- 7 days (rows) × 24 hours (columns) grid
+- Color intensity = watch frequency
+- Show peak time with label
+
+**Charts:**
+- Videos by hour (bar chart, 0-23)
+- Videos by day of week (bar chart)
+- Videos by month (line chart)
+- Weekend vs Weekday comparison
+
+**Insights:**
+- "Night owl" or "Early bird" badge (based on peak hour)
+- Most productive day vs most YouTube day
+- Binge month vs quiet month
+
+#### **4. Content Categories**
+- Pie chart of category breakdown
+- Top 3 categories highlighted
+- "Your YouTube Personality" label based on top categories
+- Category trends over months
+
+#### **5. Binge Behavior**
+**Top 5 Binge Sessions:**
+- Date, video count, duration estimate, channel/topic
+- Visual timeline
+
+**Metrics:**
+- Longest session (video count)
+- Most frequent binge topic
+- Average session length
+- "Rabbit hole" count (10+ video sessions)
+
+**Rewatch Stats:**
+- Most rewatched video (title, count)
+- Comfort content channels
+- Rewatch rate %
+
+#### **6. Fun Facts**
+- "You watched X videos at 3am"
+- "Most common word in titles: [word]"
+- "Your weirdest recommendation click"
+- "Procrastination score" (weekday 9-5 watching)
+- "First video of 2025" + "Last video of 2025"
+- Video #1000 milestone
+- Longest video title
+- "You're still watching videos from [old year]"
+
+---
+
+### **Technical Requirements**
+
+**Tech Stack:**
+- React component (single `.jsx` file)
+- Recharts for charts (BarChart, LineChart, PieChart, Heatmap)
+- Tailwind CSS for styling
+- lucide-react for icons
+
+**Component Structure:**
+```jsx
+- File upload zone (to load watch-history.json)
+- Loading state while processing
+- Tab navigation (Hero, Channels, Patterns, Categories, Binges, Fun Facts)
+- Responsive grid layouts
+- Card components for stats
+- Chart components
+```
+
+**Data Processing:**
+```javascript
+// On file upload:
+1. Parse JSON
+2. Filter by date range (2025)
+3. Calculate all metrics
+4. Group and aggregate data
+5. Sort rankings
+6. Store in React state
+7. Render dashboard
+```
+
+**Key Functions to Implement:**
+```javascript
+parseWatchHistory(json) // Parse uploaded file
+filterByYear(data, year) // Filter to 2025
+calculateChannelStats(data) // Top channels
+calculateTimePatterns(data) // Hourly/daily patterns
+detectBingeSessions(data) // Find consecutive watching
+categorizeContent(data) // Classify by keywords
+calculateFunFacts(data) // Generate insights
+```
+
+---
+
+### **Visual Design**
+
+**Color Palette:**
+- Primary: Red (#FF0000) - YouTube brand
+- Secondary: Dark gray (#282828) - YouTube dark mode
+- Accent: Purple/Pink gradient for Wrapped style
+- Background: White to light gradient
+
+**Layout:**
+- Full-screen immersive design
+- Large hero section with key numbers
+- Horizontal tab navigation
+- Card-based layout for stats
+- Smooth scrolling between sections
+
+**Typography:**
+- Hero numbers: 6xl, bold
+- Section titles: 2xl, semibold  
+- Stats: 3xl, bold
+- Body: base
+
+---
+
+### **Success Criteria**
+✅ Upload and parse watch-history.json  
+✅ Display accurate 2025 stats  
+✅ All 6 sections working  
+✅ Charts render correctly  
+✅ Mobile responsive  
+✅ Visually polished "Wrapped" aesthetic  
+✅ Fun insights that make you laugh/cringe  
+
+---
+
+### **Deliverable**
+Single React component file: `youtube-wrapped.jsx`
+
+**That's it! Feed this to Claude Code and let it build.** 🎬
