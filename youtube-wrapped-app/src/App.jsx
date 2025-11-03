@@ -24,8 +24,8 @@ function parseWatchHistory(htmlContent) {
       const cell = contentCells[i];
       const textContent = cell.innerHTML;
 
-      // Check if it's a watched/viewed action
-      const actionMatch = textContent.match(/(Watched|Viewed)\s+<a/);
+      // Check if it's a watched/viewed action (handles &nbsp; HTML entities)
+      const actionMatch = textContent.match(/(Watched|Viewed)(?:\s|&nbsp;)+<a/);
       if (!actionMatch) continue;
 
       const action = actionMatch[1].toLowerCase();
