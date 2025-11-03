@@ -35,7 +35,10 @@ function parseWatchHistory(htmlContent) {
       if (!videoLink) continue; // Skip non-video content
 
       const videoUrl = videoLink.getAttribute('href');
-      const videoId = new URL(videoUrl).searchParams.get('v');
+      // Extract video ID from URL (handle both relative and absolute URLs)
+      const videoIdMatch = videoUrl.match(/[?&]v=([^&]+)/);
+      if (!videoIdMatch) continue;
+      const videoId = videoIdMatch[1];
       const title = videoLink.textContent.trim();
 
       // Extract channel link
