@@ -952,17 +952,36 @@ function FunFactsSection({ funFacts }) {
 
 export default function YouTubeWrapped() {
   const [htmlContent, setHtmlContent] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('hero');
   const [yearFilter] = useState(2025);
+
+  // Auto-load the sample data on mount
+  React.useEffect(() => {
+    fetch('/watch-history.html')
+      .then(response => response.text())
+      .then(content => {
+        console.log('Loaded file, length:', content.length);
+        setHtmlContent(content);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error loading file:', error);
+        setLoading(false);
+      });
+  }, []);
 
   const analytics = useMemo(() => {
     if (!htmlContent) return null;
 
     try {
       const events = parseWatchHistory(htmlContent);
+      console.log('Parsed events:', events.length);
       const filtered = filterByYear(events, yearFilter);
-      return calculateAnalytics(filtered);
+      console.log('Filtered events for 2025:', filtered.length);
+      const result = calculateAnalytics(filtered);
+      console.log('Analytics:', result);
+      return result;
     } catch (error) {
       console.error('Error processing data:', error);
       return null;

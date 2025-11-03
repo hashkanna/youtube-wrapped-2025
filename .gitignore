@@ -29,7 +29,8 @@ Thumbs.db
 .claude/
 
 # Large data files (users should get their own from Google Takeout)
-# youtube_data/watch-history.html
+data/
+youtube_data/
 
 # Temporary files
 *.tmp
